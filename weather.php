@@ -1,7 +1,6 @@
-<?php 
 require_once('workflows.php');
 $w = new Workflows();
-$query = 'shanghai';
+$query = {query};
 $lang = 'CN';
 $country = 'CN';
 $api = "d90ac25ff4afbab2";
@@ -31,5 +30,3 @@ if(isset($res->response->error) && $res->response->error->type==='querynotfound'
 
 }
 echo $w->toxml();
-
-?>
