@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.leplay.weather</string>
+	<key>connections</key>
+	<dict/>
+	<key>createdby</key>
+	<string>Leplay</string>
+	<key>description</key>
+	<string></string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Weather</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>62</integer>
+				<key>keyword</key>
+				<string>tq</string>
+				<key>runningsubtext</key>
+				<string>Loading...</string>
+				<key>script</key>
+				<string>require_once('workflows.php');
+$w = new Workflows();
+$query = ucfirst({query});
+$lang = 'CN';
+$country = 'CN';
+$api = "d90ac25ff4afbab2";
+$url = "http://api.wunderground.com/api/$api/forecast/lang:$lang/q/$country/$query.json";
+$res = $w-&gt;request( $url );
+$res = json_decode( $res );
+// $conditions = $res-&gt;current_observation;
+$forecast = $res-&gt;forecast-&gt;simpleforecast-&gt;forecastday;
+
+
+foreach($forecast as $f):
+	$w-&gt;result( $f-&gt;date-&gt;epoch,
+				$f-&gt;date-&gt;epoch,
+				strip_tags($f-&gt;date-&gt;weekday.' / '.$f-&gt;date-&gt;year.'-'.$f-&gt;date-&gt;month.'-'.$f-&gt;date-&gt;day),
+				$f-&gt;conditions.' ・ 最高 '.$f-&gt;high-&gt;celsius.' ℃ ・ 最低 '.$f-&gt;low-&gt;celsius.' ℃ ・ '.$f-&gt;avewind-&gt;dir.' '.$f-&gt;avewind-&gt;kph.' km/h'.' ・ 湿度 '.$f-&gt;avehumidity.'%',
+				$f-&gt;icon.'.gif');
+endforeach;
+echo $w-&gt;toxml();
+</string>
+				<key>subtext</key>
+				<string>e.g. tq beijing</string>
+				<key>title</key>
+				<string>Weather</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>7B6584FC-AD17-4EBB-A584-8CCD7A558FD5</string>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>7B6584FC-AD17-4EBB-A584-8CCD7A558FD5</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>http://leplay.net</string>
+</dict>
+</plist>
