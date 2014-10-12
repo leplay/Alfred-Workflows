@@ -1,5 +1,6 @@
 Alfred-Workflows
 ================
+[My Blog](http://leplay.net/)
 
 # Weather
 > Keyword: tq + city
